@@ -9,10 +9,10 @@ CREATE TABLE dono (
     sobrenome VARCHAR(100),
     telefone VARCHAR(20),
     email VARCHAR(100),
-    endereco VARCHAR,
-    numero VARCHAR,
-    bairro VARCHAR,
-    cep VARCHAR
+    endereco VARCHAR(100),
+    numero VARCHAR(20),
+    bairro VARCHAR(100),
+    cep VARCHAR(15)
 );
 
 -- Cadastro dos pets
@@ -21,11 +21,11 @@ CREATE TABLE pet (
     nome VARCHAR(50) NOT NULL,
     especie ENUM('Cachorro', 'Gato', 'Outro') NOT NULL,
     raca VARCHAR(50),
-    data_nascimento DATETIME,
+    data_nascimento TIMESTAMP,
     peso DECIMAL(5,2) -- peso do pet em kg
 ,
     id_dono INT NOT NULL,
-    observacoes VARCHAR,
+    observacoes VARCHAR(500),
     FOREIGN KEY (id_dono) REFERENCES dono(id_dono)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -46,10 +46,10 @@ CREATE TABLE funcionario (
     sobrenome VARCHAR(100),
     cpf CHAR(11) UNIQUE, -- somente números
     email VARCHAR(100),
-    endereco VARCHAR,
-    numero VARCHAR,
-    bairro VARCHAR,
-    cep CHAR(8),
+    endereco VARCHAR(100),
+    numero VARCHAR(20),
+    bairro VARCHAR(100),
+    cep VARCHAR(15)
     telefone VARCHAR(20),
     id_cargo INT,
     FOREIGN KEY (id_cargo) REFERENCES cargo(id_cargo)
@@ -60,7 +60,7 @@ CREATE TABLE funcionario (
 CREATE TABLE turma (
     id_turma INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
-    descricao VARCHAR,
+    descricao VARCHAR(500),
     hora_inicio TIME,
     hora_fim TIME,
     capacidade INT
@@ -71,7 +71,7 @@ CREATE TABLE matricula (
     id_matricula INT AUTO_INCREMENT PRIMARY KEY,
     id_pet INT NOT NULL,
     id_turma INT NOT NULL,
-    data_matricula DATETIME NOT NULL,
+    data_matricula TIMESTAMP NOT NULL,
     ativo TINYINT(1) DEFAULT 1,
     FOREIGN KEY (id_pet) REFERENCES pet(id_pet)
         ON DELETE CASCADE ON UPDATE CASCADE,
@@ -92,7 +92,7 @@ CREATE TABLE agendamento (
     id_agendamento INT AUTO_INCREMENT PRIMARY KEY,
     id_pet INT NOT NULL,
     id_servico INT NOT NULL,
-    data_hora DATETIME NOT NULL,
+    data_hora TIMESTAMP NOT NULL,
     observacoes VARCHAR,
     FOREIGN KEY (id_pet) REFERENCES pet(id_pet)
         ON DELETE CASCADE ON UPDATE CASCADE,
